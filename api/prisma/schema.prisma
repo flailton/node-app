@@ -1,0 +1,21 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement()) @db.UnsignedInt
+  name      String    @db.VarChar(63)
+  email     String    @db.VarChar(127)
+  password  String    @db.VarChar(127)
+  birthAt   DateTime? @map("birth_at") @db.Date
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp(0)
+
+  @@map("users")
+}
